@@ -7,10 +7,14 @@
 		TO_CHAR(regdate, 'YY"년 "MM"월 "DD"일 "HH24:MI') AS regdate
 	</sql>
 
-	<select id="getList" resultType="test.cafe.dto.CafeDto">
-		SELECT <include refid="cafeColumns"/>
-		FROM board_cafe
-		ORDER BY num DESC
+	<select id="getList" parameterType="test.cafe.dto.CafeDto" resultType="test.cafe.dto.CafeDto">
+		SELECT *
+		FROM (SELECT result1.*, ROWNUM rnum
+				FROM (SELECT <include refid="cafeColumns"/>
+						FROM board_cafe
+						ORDER BY num ASC) result1
+				)
+		WHERE rnum BETWEEN #{startRowNum} AND ${endRowNum}		
 	</select>
 	
 	<insert id="insert" parameterType="test.cafe.dto.CafeDto">
@@ -27,5 +31,18 @@
 		SELECT <include refid="cafeColumns" />
 		FROM board_cafe
 		WHERE num=#{num}
+	</select>
+	<delete id="delete" parameterType="int">
+		DELETE FROM board_cafe
+		WHERE num=#{num}
+	</delete>
+	<update id="update" parameterType="test.cafe.dto.CafeDto">
+		UPDATE board_cafe
+		SET title=#{title}, content=#{content}
+		WHERE num=#{num}
+	</update>
+	<select id="getCount" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM board_cafe
 	</select>
 </mapper>
