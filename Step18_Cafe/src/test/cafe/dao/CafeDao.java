@@ -82,26 +82,26 @@ public class CafeDao {
 	}
 	
 	//글정보를 리턴해주는 메소드
-	public CafeDto getData(int num) {
+	public CafeDto getData(CafeDto dto) {
 		SqlSession session = null;
-		CafeDto dto = null;
+		CafeDto resultDto = null;
 		
 		try {
 			session = factory.openSession(true);
 			/*
 			 * 	Mapper namespace : cafe
 			 * 	sql id : getData
-			 * 	parameterType : int
+			 * 	parameterType : CafeDto
 			 * 	resultType : CafeDto 
 			 */
-			dto = session.selectOne("cafe.getData", num);
+			resultDto = session.selectOne("cafe.getData", dto);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
 			session.close();
 		}
 		
-		return dto;
+		return resultDto;
 	}
 	
 	//글정보를 삭제하는 메소드
@@ -144,13 +144,18 @@ public class CafeDao {
 	}
 	
 	//전체 글의 갯수를 리턴하는 메소드
-	public int getCount() {
+	public int getCount(CafeDto dto) {
 		SqlSession session = null;
 		int count = 0;
 		
 		try {
 			session = factory.openSession(true);
-			count = session.selectOne("cafe.getCount");
+			/*
+			 * 	검색 조건에 맞는 row 의 갯수만 셀 수 있도록
+			 * 	parameter 를 CafeDto 에 전달한다.
+			 * 	parameterType : CafeDto
+			 */
+			count = session.selectOne("cafe.getCount", dto);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {

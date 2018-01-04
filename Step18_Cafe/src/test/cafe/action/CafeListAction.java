@@ -12,7 +12,7 @@ import test.controller.ActionForward;
 
 public class CafeListAction extends Action{
 	//한 페이지에 나타낼 로우의 갯수
-	private static final int PAGE_ROW_COUNT = 5;
+	private static final int PAGE_ROW_COUNT = 3;
 	//하단 디스플레이 페이지 갯수
 	private static final int PAGE_DISPLAY_COUNT = 5;
 	
@@ -41,7 +41,7 @@ public class CafeListAction extends Action{
 			}else if(condition.equals("writer")){//작성자 검색
 				dto.setWriter(keyword);
 			}
-			// list.jsp 뷰페이지에서 필요한 내용을 request 에 담는다.
+			// list.jsp 뷰페이지에서 필요한 내용을 request 에 담는다. (검색 후 검색 폼에 검색한 키워드를 남기기 위해서)
 			request.setAttribute("condition", condition);
 			request.setAttribute("keyword", keyword);
 		}
@@ -59,7 +59,7 @@ public class CafeListAction extends Action{
 		//보여줄 페이지 데이터의 끝 ResultSet row 번호
 		int endRowNum=pageNum*PAGE_ROW_COUNT;
 		//전체 row 의 갯수를 DB 에서 얻어온다.
-		int totalRow = CafeDao.getInstance().getCount();
+		int totalRow = CafeDao.getInstance().getCount(dto);
 		//전체 페이지의 갯수 구하기
 		int totalPageCount = (int)Math.ceil(totalRow/(double)PAGE_ROW_COUNT);
 		//시작 페이지 번호
@@ -71,8 +71,6 @@ public class CafeListAction extends Action{
 			endPageNum=totalPageCount; //보정해준다. 
 		}				
 		
-		// CafeDto 에 필요한 값을 담고
-		dto = new CafeDto();
 		dto.setStartRowNum(startRowNum);
 		dto.setEndRowNum(endRowNum);
 		

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>views/users/signupform.jsp</title>
-<script src="../js/jquery-3.2.1.js"></script>
+<script src="../resources/js/jquery-3.2.1.js"></script>
 </head>
 <body>
 <h3>회원 가입 폼</h3>

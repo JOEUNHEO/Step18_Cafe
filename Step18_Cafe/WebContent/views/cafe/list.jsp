@@ -38,7 +38,7 @@
 	<c:forEach var="tmp" items="${list }">
 		<tr>
 			<td>${tmp.num }</td>
-			<td><a href="detail.do?num=${tmp.num }">${tmp.title }</a></td>
+			<td><a href="detail.do?num=${tmp.num }&condition=${condition}&keyword=${keyword}">${tmp.title }</a></td>
 			<td>${tmp.writer }</td>
 			<td>${tmp.viewCount }</td>
 			<td>${tmp.regdate }</td>
@@ -50,7 +50,7 @@
 <div class="page_display">
 	<c:choose>
 		<c:when test="${startPageNum ne 1 }">
-			<a href="list.do?pageNum=${startPageNum-1 }">[ 이전 ]</a>
+			<a href="list.do?pageNum=${startPageNum-1 }&condition=${condition}&keyword=${keyword}">[ 이전 ]</a>
 		</c:when>
 		<c:otherwise>
 			<a class="muted" href="javascript:">[ 이전 ]</a>
@@ -60,16 +60,16 @@
 	<c:forEach var="i" begin="${startPageNum }" end="${endPageNum }">
 		<c:choose>
 			<c:when test="${i eq pageNum }">
-				<a  class="active" href="list.do?pageNum=${i }">${i }</a>
+				<a  class="active" href="list.do?pageNum=${i }&condition=${condition}&keyword=${keyword}">${i }</a>
 			</c:when>
 			<c:otherwise>
-				<a href="list.do?pageNum=${i }">${i }</a>
+				<a href="list.do?pageNum=${i }&condition=${condition}&keyword=${keyword}">${i }</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
 	<c:choose>
 		<c:when test="${endPageNum lt totalPageCount }">
-			<a href="list.do?pageNum=${endPageNum+1 }">[ 다음 ]</a>
+			<a href="list.do?pageNum=${endPageNum+1 }&condition=${condition}&keyword=${keyword}">[ 다음 ]</a>
 		</c:when>
 		<c:otherwise>
 			<a class="muted" href="javascript:">[ 다음 ]</a>
