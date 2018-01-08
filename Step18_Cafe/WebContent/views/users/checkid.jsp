@@ -1,11 +1,12 @@
 <%@page import="test.users.dao.UsersDao"%>
 <%@ page language="java" contentType="application/json; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String msg = (String)request.getAttribute("msg");
-%>
-<%if(msg.equals("이미 사용하는 아이디입니다.")){%>
-	{"response":true}
-<%}else{ %>
-	{"response":false}
-<%} %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:choose>
+	<c:when test="${isValid }">
+		{"response":true}
+	</c:when>
+	<c:otherwise>
+		{"response":false}
+	</c:otherwise>
+</c:choose>

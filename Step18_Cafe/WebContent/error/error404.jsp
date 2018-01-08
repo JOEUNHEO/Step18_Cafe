@@ -5,12 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>views/users/logout.jsp</title>
+<title>error/error404.jsp</title>
 </head>
 <body>
-<script>
-	alert("${msg}");
-	location.href="/home.do";
-</script>
+<p>해당 페이지는 존재 하지 않습니다</p>
+<a href="${pageContext.request.contextPath }/">인덱스로 가기</a>
 </body>
 </html>

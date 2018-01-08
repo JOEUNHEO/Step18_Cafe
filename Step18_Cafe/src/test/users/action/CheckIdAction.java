@@ -15,11 +15,8 @@ public class CheckIdAction extends Action{
 		//2. DB 에 같은 id 가 있는지 확인한다.
 		boolean isValid = UsersDao.getInstance().checkId(id);
 		
-		if(isValid){// 같은 id 가 있으면,
-			request.setAttribute("msg", "이미 사용하는 아이디입니다.");
-		}else {// 같은 id 가 없으면,
-			request.setAttribute("msg", "사용 가능한 아이디 입니다.");
-		}
+		request.setAttribute("isValid", isValid);
+				
 		//3. forward 한다.
 		return new ActionForward("/views/users/checkid.jsp");
 	}

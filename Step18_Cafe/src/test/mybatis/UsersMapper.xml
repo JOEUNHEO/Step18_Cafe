@@ -6,23 +6,23 @@
 		WHERE id=#{id}
 		
 	</delete>
-	<update id="update" parameterType="test.users.dto.UsersDto">
+	<update id="update" parameterType="usersDto">
 		UPDATE users
 		SET pwd=#{pwd}, email=#{email}
 		WHERE id=#{id}
 	</update>
-	<select id="getData" parameterType="java.lang.String" resultType="test.users.dto.UsersDto">
+	<select id="getData" parameterType="java.lang.String" resultType="usersDto">
 		SELECT id, pwd, email, regdate
 		FROM users
 		WHERE id=#{id}
 	</select>
 	<!-- SELECT 된 row 가 없으면 null 을 리턴한다. -->
-	<select id="isValid" parameterType="test.users.dto.UsersDto" resultType="java.lang.String">
+	<select id="isValid" parameterType="usersDto" resultType="java.lang.String">
 		SELECT id
 		FROM users
 		WHERE id=#{id} AND pwd=#{pwd}
 	</select>
-	<insert id="insert" parameterType="test.users.dto.UsersDto">
+	<insert id="insert" parameterType="usersDto">
 		INSERT INTO users
 		(id, pwd, email, regdate)
 		VALUES(#{id}, #{pwd}, #{email}, SYSDATE)

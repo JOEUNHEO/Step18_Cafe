@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="file">
+	<!-- 자주 사용하는 sql 문을 미리 정의 해 놓기 -->
+	<sql id="fileColumns">
+		num, writer, title, orgFileName, saveFileName, fileSize,
+		TO_CHAR(regdate, 'yyyy"년 "mm"월 "dd"일 "HH24:MI') AS regdate
+	</sql>
+	
+	<select id="insert" parameterType="fileDto">
+		INSERT INTO board_data(num, writer, title, orgFileName, saveFileName, fileSize, regdate)
+		VALUES(board_data_seq.NEXTVAL,#{writer},#{title},#{orgFileName},#{saveFileName},#{fileSize},SYSDATE)
+	</select>
+	<select id="getList" parameterType="fileDto" resultType="fileDto">
+		SELECT *
+		FROM (SELECT result1.*, ROWNUM rnum
+		      FROM (SELECT <include refid="fileColumns"/>
+			        FROM board_data
+			        <where> <!-- writer, title, orgFileName 가 모두 null 일 경우 where 절이 만들어지지 않는다. -->
+						<if test="writer != null">
+							OR writer LIKE '%'||#{writer}||'%'
+						</if>
+						<if test="title != null">
+							OR title LIKE '%'||#{title}||'%'
+						</if>
+						<if test="orgFileName != null">
+							OR orgFileName LIKE '%'||#{orgFileName}||'%'
+						</if>
+					</where>
+		            ORDER BY num ASC) result1
+	 	      )
+	 	WHERE rnum BETWEEN #{startRowNum} AND ${endRowNum}
+	</select>
+	<delete id="delete" parameterType="int">
+		DELETE FROM board_data
+		WHERE num=#{num}
+	</delete>
+	<select id="getData" parameterType="int" resultType="fileDto">
+		SELECT <include refid="fileColumns"/>
+		FROM board_data
+		WHERE num=#{num}
+	</select>
+	<select id="getCount" parameterType="FileDto" resultType="int">
+		SELECT NVL(MAX(ROWNUM), 0)
+		FROM board_data
+		<where> <!-- writer, title, orgFileName 가 모두 null 일 경우 where 절이 만들어지지 않는다. -->
+			<if test="writer != null">
+				OR writer LIKE '%'||#{writer}||'%'
+			</if>
+			<if test="title != null">
+				OR title LIKE '%'||#{title}||'%'
+			</if>
+			<if test="orgFileName != null">
+				OR orgFileName LIKE '%'||#{orgFileName}||'%'
+			</if>
+		</where>
+	</select>
+</mapper>

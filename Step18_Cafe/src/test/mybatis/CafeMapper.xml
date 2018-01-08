@@ -7,7 +7,7 @@
 		TO_CHAR(regdate, 'YY"년 "MM"월 "DD"일 "HH24:MI') AS regdate
 	</sql>
 
-	<select id="getList" parameterType="test.cafe.dto.CafeDto" resultType="test.cafe.dto.CafeDto">
+	<select id="getList" parameterType="cafeDto" resultType="cafeDto">
 		SELECT *
 		FROM (SELECT result1.*, ROWNUM rnum
 				FROM (SELECT <include refid="cafeColumns"/>
@@ -28,7 +28,7 @@
 		WHERE rnum BETWEEN #{startRowNum} AND ${endRowNum}		
 	</select>
 	
-	<insert id="insert" parameterType="test.cafe.dto.CafeDto">
+	<insert id="insert" parameterType="cafeDto">
 		INSERT INTO board_cafe
 		(num, writer, title, content, viewCount, regdate)
 		VALUES(board_cafe_seq.NEXTVAL, #{writer}, #{title}, #{content}, #{viewCount}, SYSDATE)
@@ -38,7 +38,7 @@
 		SET viewCount =viewCount+1
 		WHERE num=#{num}
 	</update>
-	<select id="getData" parameterType="test.cafe.dto.CafeDto" resultType="test.cafe.dto.CafeDto">
+	<select id="getData" parameterType="cafeDto" resultType="cafeDto">
 		SELECT result1.*
 		FROM
 			(SELECT <include refid="cafeColumns" />,
@@ -63,12 +63,12 @@
 		DELETE FROM board_cafe
 		WHERE num=#{num}
 	</delete>
-	<update id="update" parameterType="test.cafe.dto.CafeDto">
+	<update id="update" parameterType="cafeDto">
 		UPDATE board_cafe
 		SET title=#{title}, content=#{content}
 		WHERE num=#{num}
 	</update>
-	<select id="getCount" parameterType="test.cafe.dto.CafeDto" resultType="int">
+	<select id="getCount" parameterType="cafeDto" resultType="int">
 		SELECT NVL(MAX(ROWNUM), 0)
 		FROM board_cafe
 		<where> <!-- writer, title, content 가 모두 null 일 경우 where 절이 만들어지지 않는다. -->

@@ -9,6 +9,11 @@ import test.cafe.action.CafeInsertFormAction;
 import test.cafe.action.CafeListAction;
 import test.cafe.action.CafeUpdateAction;
 import test.cafe.action.CafeUpdateFormAction;
+import test.file.action.FileDeleteAction;
+import test.file.action.FileDownloadAction;
+import test.file.action.FileInsertAction;
+import test.file.action.FileInsertFormAction;
+import test.file.action.FileListAction;
 import test.users.action.CheckIdAction;
 import test.users.action.DeleteAction;
 import test.users.action.InfoAction;
@@ -20,13 +25,13 @@ import test.users.action.SignupFormAction;
 import test.users.action.UpdateAction;
 import test.users.action.UpdateFormAction;
 
-public class UserActionFactory {
-	private static UserActionFactory factory;
-	private UserActionFactory(){}
+public class ActionFactory {
+	private static ActionFactory factory;
+	private ActionFactory(){}
 	//자신의 참조값을 리턴해주는 메소드
-	public static UserActionFactory getInstance(){
+	public static ActionFactory getInstance(){
 		if(factory==null){
-			factory=new UserActionFactory();
+			factory=new ActionFactory();
 		}
 		return factory;
 	}
@@ -72,6 +77,16 @@ public class UserActionFactory {
 			action = new CafeUpdateAction();
 		}else if(command.equals("/cafe/comment_insert")) {
 			action = new CafeCommentInsertAction();
+		}else if(command.equals("/file/list")) {
+			action = new FileListAction();
+		}else if(command.equals("/file/private/insert_form")) {
+			action = new FileInsertFormAction();
+		}else if(command.equals("/file/private/insert")) {
+			action = new FileInsertAction();
+		}else if(command.equals("/file/download")) {
+			action = new FileDownloadAction();
+		}else if(command.equals("/file/private/delete")) {
+			action = new FileDeleteAction();
 		}
 		return action;
 	}

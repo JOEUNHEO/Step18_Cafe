@@ -5,23 +5,33 @@
 <head>
 <meta charset="UTF-8">
 <title>views/users/loginform.jsp</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.css" />
 </head>
 <body>
-<%
-	String url = (String)request.getAttribute("url");
-	String savedId = (String)request.getAttribute("savedId");
-%>
-<h3>로그인 폼</h3>
-<form action="login.do?url=<%=url %>" method="post">
-	<label for="id">아이디</label>
-	<input type="text" name="id" value="<%=savedId %>" />
-	<label for="pwd">비밀 번호</label>
-	<input type="password" name="pwd"/>
-	<label>
-		<input type="checkbox" name="isSave" value="yes" />
-		아이디 저장
-	</label>
-	<button type="submit">로그인</button>
-</form>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-6 col-sm-offset-3">
+			<form action="login.do?url=${url }" method="post">
+				<div class="form-group">
+					<label for="id">아이디</label>
+					<input type="text" name="id" id="id" class="form-control" value="${savedId }" />
+					<p class="help-block">반드시 입력하세요</p>
+				</div>
+				<div class="form-group">
+					<label for="pwd">비밀번호</label>
+					<input type="password" name="pwd" id="pwd" class="form-control" />
+				</div>
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="isSave" value="yes" />
+						아이디 저장
+					</label>
+				</div>
+				<button type="submit" class="btn btn-primary">로그인</button>
+				<button type="reset" class="btn btn-warning">취소</button>
+			</form>
+		</div>	
+	</div>
+</div>
 </body>
 </html>

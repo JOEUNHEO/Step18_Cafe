@@ -14,12 +14,14 @@
 		<p><a href="users/private/info.do">${id }</a>님 로그인중...</p>
 		<a href="users/logout.do">로그아웃</a>
 		<a href="cafe/list.do">카페 글 목록보기</a>
+		<a href="file/list.do">자료실 목록보기</a>
 	</c:when>
 	<c:otherwise>
 		<ul>
 			<li><a href="users/signup_form.do">회원가입</a></li>
 			<li><a href="users/login_form.do?url=${pageContext.request.contextPath }/home.do">로그인</a></li>
 			<li><a href="cafe/list.do">카페 글 목록보기</a></li>
+			<li><a href="file/list.do">자료실 목록보기</a></li>
 		</ul>
 	</c:otherwise>
 </c:choose>

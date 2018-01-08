@@ -12,4 +12,10 @@
 		SELECT board_cafe_seq.NEXTVAL
 		FROM DUAL
 	</select>
+	<select id="getList" parameterType="int" resultType="test.cafe.dto.CafeCommentDto">
+		SELECT num, writer, content, target_id, ref_group, comment_group, regdate
+		FROM board_cafe_comment
+		WHERE ref_group=#{num}
+		ORDER BY comment_group ASC, num ASC
+	</select>
 </mapper>

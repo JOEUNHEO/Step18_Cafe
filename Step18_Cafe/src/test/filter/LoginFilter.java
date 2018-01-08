@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
  * 
  * 	- javax.servlet.Filter 인터페이스를 구현해서 만든다. 
  */
-@WebFilter({"/users/private/*", "/cafe/private/*"})// private 폴더내에 있는 jsp로 요청하기 전에 Filter 실행!
+@WebFilter({"/users/private/*", "/cafe/private/*", "/file/private/*"})// private 폴더내에 있는 jsp로 요청하기 전에 Filter 실행!
 public class LoginFilter implements Filter{
 
 	@Override

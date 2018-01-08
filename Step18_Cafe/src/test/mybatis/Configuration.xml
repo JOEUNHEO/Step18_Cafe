@@ -3,8 +3,17 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+		
 	<!-- DB 접속 정보 -->
 	<properties resource="test/mybatis/db.properties"/>
+	
+	<!-- Type 별칭 미리 정의하기 -->
+	<typeAliases>
+		<typeAlias type="test.file.dto.FileDto" alias="fileDto"/>
+		<typeAlias type="test.users.dto.UsersDto" alias="usersDto"/>
+		<typeAlias type="test.cafe.dto.CafeDto" alias="cafeDto"/>
+	</typeAliases>
+	
 	<!-- 환경설정 -->
 	<environments default="dev">
 		<environment id="dev">
@@ -22,5 +31,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="test/mybatis/UsersMapper.xml"/>
 		<mapper resource="test/mybatis/CafeMapper.xml"/>
 		<mapper resource="test/mybatis/CafeCommentMapper.xml"/>
+		<mapper resource="test/mybatis/FileMapper.xml"/>
 	</mappers>	
 </configuration>
